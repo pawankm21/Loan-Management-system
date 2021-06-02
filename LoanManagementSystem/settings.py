@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'loanapp.apps.LoanappConfig',
     'loanapi.apps.LoanapiConfig',
     'rest_framework',
-    'django_filters',
+    'rest_framework.authtoken',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -53,20 +54,30 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
+  
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ],
-    #   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE': 10
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Loan Management System',
+    'DESCRIPTION': 'A minimal loan management system',
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
+    'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
 }
 ROOT_URLCONF = 'LoanManagementSystem.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR /'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,3 +1,4 @@
+from django.db import models
 from django.db.models import fields
 from rest_framework import serializers
 from loanapp.models import Loan, Payment, Customer, User
@@ -9,23 +10,26 @@ class LoanSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'customer',
-            'agent',
-            'status',
-            'interest_rate',
-            'on_date_issued',
-            'loan_amount',
-            'tenure',
-            'last_payment',
-        ]
+                  'agent',
+                  'status',
+                  'interest_rate',
+                  'loan_amount',
+                  'tenure',
+                  'on_date_issued',
+                  'last_payment', 
+                  'instalment_amount',
+                  'pending_instalments',
+                  'number_of_payments'
+                  ]
 
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = [
-            'name',
-            'email',
-            'address',
-            'account_number'
-        
-        ]
+        fields = '__all__'
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = '__all__'

@@ -28,5 +28,5 @@ class LoanAdmin(admin.ModelAdmin):
         'agent',
         'status',
         'loan_amount',
-        'on_date_approved',
+        'on_date_issued'
     )
